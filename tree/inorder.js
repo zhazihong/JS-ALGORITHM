@@ -1,28 +1,34 @@
 const bt = require('./bt');
 
-// 二叉树先序遍历 https://www.liaoxuefeng.com/wiki/1022910821149312/1023027697415616
+// 二叉树中序遍历
 // 递归
-const inOrder = function (root) {
-    if (!root) {
-        return;
-    }
-    console.log(root.val);
-    inOrder(root.left);
-    inOrder(root.right);
-}
+// const inOrder = function (root) {
+//     if (!root) {
+//         return;
+//     }
+//     inOrder(root.left);
+//     console.log(root.val);
+//     inOrder(root.right);
+// }
 
 // 非递归
 const inOrder2 = function (root) {
-    let stack = [root];
-    while (stack.length) {
-        let p = stack.pop();
-        console.log(p.val);
-        if (p.right) stack.push(p.right);
-        if (p.left) stack.push(p.left);
+    let stack = [];
+    let p = root;
+    while (stack.length || p) {
+        while (p) {
+            stack.push(p);
+            // console.log(p);
+            p = p.left;
+        }
+        const n = stack.pop();
+        console.log(n.val);
+        p = n.right;
+        // console.log(p);
     }
 }
 
-console.log('递归');
-inOrder(bt);
+// console.log('递归');
+// inOrder(bt);
 console.log('非递归');
 inOrder2(bt);

@@ -1,17 +1,18 @@
 const bt = require('./bt');
 
+// 二叉树先序遍历
 // 递归
-const inOrder = function (root) {
+const preOrder = function (root) {
     if (!root) {
         return;
     }
     console.log(root.val);
-    inOrder(root.left);
-    inOrder(root.right);
+    preOrder(root.left);
+    preOrder(root.right);
 }
 
 // 非递归
-const inOrder2 = function (root) {
+const preOrder2 = function (root) {
     let stack = [root];
     while (stack.length) {
         let p = stack.pop();
@@ -21,7 +22,7 @@ const inOrder2 = function (root) {
     }
 }
 
-console.log('先序遍历-递归');
-inOrder(bt);
-console.log('先序遍历-非递归');
-inOrder2(bt);
+console.log('递归');
+preOrder(bt);
+console.log('非递归');
+preOrder2(bt);
