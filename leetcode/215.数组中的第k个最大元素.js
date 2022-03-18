@@ -1,27 +1,23 @@
-/**
- * 堆：
- * 1. 堆是一种特殊的完全二叉树（完全二叉树每一层都是填满的，或者最后一层只缺少右侧的若干节点）
- * 2. 所有的节点都大于等于（最大堆）或小于等于（最小堆）它的子节点
+/*
+ * @lc app=leetcode.cn id=215 lang=javascript
+ *
+ * [215] 数组中的第K个最大元素
  */
 
-/**
- * 最小堆实现
- * 1. 在类里，声明一个数据，用来装元素
- * 2. 主要方法：插入、删除堆顶、获取堆顶、获取堆大小
- */
+// @lc code=start
+
 class MinHeap {
     constructor() {
         this.heap = [];
     }
 
     swap(i1, i2) {
-        const temp = this.heap[i1];
-        this.heap[i1] = this.heap[i2];
-        this.heap[i2] = temp;
+        [this.heap[i1], this.heap[i2]] = [this.heap[i2], this.heap[i1]];
     };
 
     getParentIndex(index) {
-        return (index - 1) >> 2;
+        // 二进制位运算符 右移一位刚好相当于除二取整
+        return (index - 1) >> 1;
     }
 
     // 上移
@@ -82,11 +78,21 @@ class MinHeap {
 
 }
 
-const heap = new MinHeap();
-[3, 2, 1, 5, 6, 4].forEach((n) => {
-    heap.insert(n);
-});
-// heap.pop();
-// console.log(heap.peek());
-// console.log(heap.size());
-console.log(heap);
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var findKthLargest = function (nums, k) {
+    if (!nums) return;
+    let heap = new MinHeap();
+    nums.forEach(n => {
+        heap.insert(n);
+        if (heap.size() > k) {
+            heap.pop();
+        }
+    });
+    return heap.peek();
+};
+// @lc code=end
+
