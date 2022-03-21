@@ -1,18 +1,10 @@
-/**
- * 堆：
- * 1. 堆是一种特殊的完全二叉树（完全二叉树每一层都是填满的，或者最后一层只缺少右侧的若干节点）
- * 2. 所有的节点都大于等于（最大堆）或小于等于（最小堆）它的子节点
- * 
- * 技术要点：(堆的使用)
- * 1. 堆能快速、高效地找出最大值和最小值，时间复杂度：O(1)
- * 2. 找出第K个最大(小)元素
+/*
+ * @lc app=leetcode.cn id=23 lang=javascript
+ *
+ * [23] 合并K个升序链表
  */
 
-/**
- * 最小堆实现
- * 1. 在类里，声明一个数据，用来装元素
- * 2. 主要方法：插入、删除堆顶、获取堆顶、获取堆大小
- */
+// @lc code=start
 class MinHeap {
     constructor() {
         this.heap = [];
@@ -33,7 +25,7 @@ class MinHeap {
         // 上移到堆顶 停止递归
         if (index === 0) return;
         const parentIndex = this.getParentIndex(index);
-        if (this.heap[index] < this.heap[parentIndex]) {
+        if (this.heap[parentIndex] && this.heap[index].val < this.heap[parentIndex].val) {
             this.swap(index, parentIndex);
             // 继续上移到合适的位置
             this.shiftUp(parentIndex);
@@ -47,11 +39,11 @@ class MinHeap {
     // 下移
     shiftDown(index) {
         const [leftIndex, rightIndex] = this.getChildrenIndex(index);
-        if (this.heap[index] > this.heap[leftIndex]) {
+        if (this.heap[leftIndex] && this.heap[index].val > this.heap[leftIndex].val) {
             this.swap(index, leftIndex);
             this.shiftDown(leftIndex);
         }
-        if (this.heap[index] > this.heap[rightIndex]) {
+        if (this.heap[rightIndex] && this.heap[index].val > this.heap[rightIndex].val) {
             this.swap(index, rightIndex);
             this.shiftDown(rightIndex);
         }
@@ -64,14 +56,19 @@ class MinHeap {
     }
 
     /**
-     * 删除堆顶
+     * 删除堆顶并返回
      * 1. 用数组尾部元素替换堆顶(直接删除堆顶会破坏堆结构)
      * 2. 然后下移：将新堆顶和她得子节点进行交换，直到子节点大于等于这个新堆顶
      * 3. 大小为k的堆中删除堆顶的时间复杂度为O(logk)
      */
     pop() {
+        if (this.heap.length === 1) {
+            return this.heap.pop();
+        }
+        const top = this.heap[0];
         this.heap[0] = this.heap.pop();
         this.shiftDown(0);
+        return top;
     }
 
     // 获取堆顶元素
@@ -85,12 +82,31 @@ class MinHeap {
     }
 
 }
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode[]} lists
+ * @return {ListNode}
+ */
+var mergeKLists = function (lists) {
+    const res = new ListNode(0);
+    let p = res;
+    const heap = new MinHeap();
+    lists.forEach((l) => {
+        if (l) heap.insert(l);
+    });
+    while (heap.size()) {
+        const n = heap.pop();
+        p.next = n;
+        p = p.next;
+        if (n.next) heap.insert(n.next);
+    }
+    return res.next;
+};
+// @lc code=end
 
-const heap = new MinHeap();
-[3, 2, 1, 5, 6, 4].forEach((n) => {
-    heap.insert(n);
-});
-// heap.pop();
-// console.log(heap.peek());
-// console.log(heap.size());
-console.log(heap);
