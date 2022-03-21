@@ -1,14 +1,10 @@
-/**
- * 堆：
- * 1. 堆是一种特殊的完全二叉树（完全二叉树每一层都是填满的，或者最后一层只缺少右侧的若干节点）
- * 2. 所有的节点都大于等于（最大堆）或小于等于（最小堆）它的子节点
+/*
+ * @lc app=leetcode.cn id=347 lang=javascript
+ *
+ * [347] 前 K 个高频元素
  */
 
-/**
- * 最小堆实现
- * 1. 在类里，声明一个数据，用来装元素
- * 2. 主要方法：插入、删除堆顶、获取堆顶、获取堆大小
- */
+// @lc code=start
 class MinHeap {
     constructor() {
         this.heap = [];
@@ -29,7 +25,7 @@ class MinHeap {
         // 上移到堆顶 停止递归
         if (index === 0) return;
         const parentIndex = this.getParentIndex(index);
-        if (this.heap[index] < this.heap[parentIndex]) {
+        if (this.heap[parentIndex] && this.heap[index].value < this.heap[parentIndex].value) {
             this.swap(index, parentIndex);
             // 继续上移到合适的位置
             this.shiftUp(parentIndex);
@@ -43,11 +39,11 @@ class MinHeap {
     // 下移
     shiftDown(index) {
         const [leftIndex, rightIndex] = this.getChildrenIndex(index);
-        if (this.heap[index] > this.heap[leftIndex]) {
+        if (this.heap[leftIndex] && this.heap[index].value > this.heap[leftIndex].value) {
             this.swap(index, leftIndex);
             this.shiftDown(leftIndex);
         }
-        if (this.heap[index] > this.heap[rightIndex]) {
+        if (this.heap[rightIndex] && this.heap[index].value > this.heap[rightIndex].value) {
             this.swap(index, rightIndex);
             this.shiftDown(rightIndex);
         }
@@ -82,11 +78,29 @@ class MinHeap {
 
 }
 
-const heap = new MinHeap();
-[3, 2, 1, 5, 6, 4].forEach((n) => {
-    heap.insert(n);
-});
-// heap.pop();
-// console.log(heap.peek());
-// console.log(heap.size());
-console.log(heap);
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var topKFrequent = function (nums, k) {
+    if (!k) return;
+    const map = new Map();
+    nums.forEach(n => {
+        map.set(n, map.has(n) ? map.get(n) + 1 : 1);
+    });
+    const heap = new MinHeap();
+    map.forEach((val, key) => {
+        heap.insert({ key: key, value: val });
+        if (heap.size() > k) {
+            heap.pop();
+        }
+    });
+    const res = [];
+    heap.heap.map(({ key }) => {
+        res.push(key)
+    })
+    return res;
+};
+// @lc code=end
+
