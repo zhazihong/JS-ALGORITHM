@@ -1,5 +1,6 @@
 /**
  * 归并排序：
+ * 用于实战中的排序，火狐浏览器sort用的归并排序
  * 
  * 思路：
  * 分：把数组劈成两半，再递归地对子数组进行"分"操作，直到分成一个个单独的数。
@@ -16,7 +17,7 @@
  * 合的时间复杂度是O(n)
  * 时间复杂度：O(n*logN)
  */
-Array.prototype.bubbleSort = function () {
+Array.prototype.mergeSort = function () {
     const rec = (arr) => {
         // console.log(arr);
         if (arr.length === 1) return arr;
@@ -42,9 +43,9 @@ Array.prototype.bubbleSort = function () {
     }
     const res = rec(this);
     // 将返回的结果挂到this上
-    res.forEach((n, i) => this[i] = n);;
+    res.forEach((n, i) => this[i] = n);
 }
 
 let arr = [5, 4, 3, 2, 1];
-arr.bubbleSort();
+arr.mergeSort();
 console.log(arr);
