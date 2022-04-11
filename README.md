@@ -62,7 +62,9 @@ newcoder HJ43. 迷宫问题
 ## 第13章 动态规划简介 DP (dynamic programming)
 13-2 70. 爬楼梯     
 13-3 198. 打家劫舍      
-newcoder HJ37. 统计每个月兔子的总数
+leetcode 72. 编辑距离    
+newcoder HJ37. 统计每个月兔子的总数     
+newcoder HJ52 计算字符串的编辑距离   
 
 ## 第14章 贪心算法简介
 14-2 455. 分饼干    
