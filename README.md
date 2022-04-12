@@ -63,6 +63,7 @@ newcoder HJ43. 迷宫问题
 13-2 70. 爬楼梯     
 13-3 198. 打家劫舍      
 leetcode 72. 编辑距离    
+leetcode 120. 三角形最小路径和      
 newcoder HJ37. 统计每个月兔子的总数     
 newcoder HJ52 计算字符串的编辑距离   
 newcoder HJ61 放苹果           
