@@ -65,6 +65,7 @@ newcoder HJ43. 迷宫问题
 leetcode 72. 编辑距离    
 newcoder HJ37. 统计每个月兔子的总数     
 newcoder HJ52 计算字符串的编辑距离   
+newcoder HJ61 放苹果           
 
 ## 第14章 贪心算法简介
 14-2 455. 分饼干    
