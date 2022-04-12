@@ -1,3 +1,5 @@
+// input 7 3
+// output 8
 const dp = (m, n) => {
     if (m === 1 || n === 1) {
         return 1;
